@@ -11,10 +11,17 @@ const productController = require('../controllers/products.controllers');
 // router.delete("/:_id", productController.deleteProduct);
 // router.put("/:_id", productController.updateProduct);
 
-router.get("/:_id",checkAuth,productController.getMyProducts);
+router.get("/:_id",productController.getMyProducts);
+router.get("/items/:_categorytype&:_key",productController.getSearchedProducts);
+router.get("/items/:category&:brand&:city&:storeName&:name",productController.getAdvancedPlusProducts);
 router.get("/",checkAuth,productController.getAll);
+router.get("/advance/search",productController.getAdvancedSearch);
 router.post("/add",checkAuth,productController.addProduct);
-router.put("/:_id",checkAuth, productController.updateProduct);
+router.put("/:_id", productController.updateProduct);
+
+
+
+
 router.delete("/:_id",checkAuth, productController.deleteProduct);
 
 module.exports = router;

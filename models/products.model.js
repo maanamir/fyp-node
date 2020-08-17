@@ -25,6 +25,15 @@ const Product = new Schema({
     image_url: {
         type: String
     },
+    brand:{
+        type:String
+    },
+    storeName:{
+        type:String
+    },
+    city:{
+        type:String
+    },
     location: {
         type: String
     },

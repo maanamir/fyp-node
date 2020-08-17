@@ -2,9 +2,23 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema;
 
+
+const Product = new Schema({
+    
+    productid:
+    {
+        type:String
+    },
+    date : {
+        type:Date
+    }
+  
+});
+
+
 const User = new Schema({
     id: {
-        type: Number,
+        type: String,
         unique: true,
         sparse:true
     },
@@ -35,6 +49,15 @@ const User = new Schema({
     avatar_ext: {
         type: String
     },
+
+    wishlist: {
+        type: [Product]
+    },
+    confirmed: {
+        type: Boolean,
+        default: false,
+      },
+    //my wish list
   
     is_deleted: {
         type: Number,
