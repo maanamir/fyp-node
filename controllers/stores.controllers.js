@@ -343,7 +343,9 @@ storesController.getCustomList = async (req, res) => {
      return res.send('error');
     }
   
-    return res.redirect('http://localhost:4200/login');
+    //return res.redirect('http://localhost:4200/login');
+    return res.redirect('https://kyadaamstore.netlify.app/login');
+    
   };
   
   storesController.loginStore = async (req, res) => {
