@@ -19,6 +19,9 @@ const Product = new Schema({
      price: {
         type: Number
     },
+    finalprice: {
+        type: Number
+    },
     category: {
         type: String
     },
@@ -37,7 +40,25 @@ const Product = new Schema({
     location: {
         type: String
     },
-    userid: {
+    storeid: {
+        type: String
+    },
+    dealtype: {
+        type: String
+    },
+    start_date: {
+        type: Date
+    },
+    end_date: {
+        type: Date
+    },
+    dealid: {
+        type: String
+    },
+    sub_category: {
+        type: String
+    },
+    sub_subcategory: {
         type: String
     },
   

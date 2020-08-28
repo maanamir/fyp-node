@@ -16,7 +16,13 @@ router.get("/customlist/:storetype",storeController.getCustomList);
 //router.get("/items/:_categorytype&:_key",productController.getSearchedProducts);
 //router.get("/",checkAuth,productController.getAll);
 router.post("/add",storeController.addStore);
+router.get("/confirmation/:token",storeController.confirmationToken);
+router.post("/login",storeController.loginStore);
 
+router.post("/register",storeController.registerStore);
+router.post("/createdeal",storeController.createdeal);
+router.post("/addProductIdToDeal",storeController.addProductToDeal);
+router.get("/getmyDealList/:_id", storeController.GetMyDealList);
 //router.put("/:_id", productController.updateProduct);
 
 

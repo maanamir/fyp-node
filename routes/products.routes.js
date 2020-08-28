@@ -16,6 +16,7 @@ router.get("/items/:_categorytype&:_key",productController.getSearchedProducts);
 router.get("/items/:category&:brand&:city&:storeName&:name",productController.getAdvancedPlusProducts);
 router.get("/",checkAuth,productController.getAll);
 router.get("/advance/search",productController.getAdvancedSearch);
+router.get("/newproductid/for/deallist",productController.newProductIdForDealList);
 router.post("/add",checkAuth,productController.addProduct);
 router.put("/:_id", productController.updateProduct);
 

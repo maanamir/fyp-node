@@ -188,7 +188,7 @@ usersController.confirmationToken= async (req, res) => {
    return res.send('error');
   }
 
-  return res.redirect('http://localhost:4200/#/login');
+  return res.redirect('http://localhost:4200/login');
 };
 
 
@@ -382,6 +382,13 @@ usersController.updateUser = async (req, res) => {
     const _id = req.params._id;
     let updates = req.body;
     runUpdate(_id, updates, res);
+  //   const result = await Users.findOne({ _id: id });
+  //   const token = jsonwebtoken.sign({
+  //     data: result,
+  //     //role: 'store'
+  //  }, process.env.JWT_KEY, { expiresIn: '7d' });
+   //console.log('orginal'+token);
+  // res.send({ message: 'token updated', token: token });
   } catch (error) {
     console.log('error', error);
     return res.status(500).send(error);

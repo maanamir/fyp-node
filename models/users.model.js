@@ -15,6 +15,26 @@ const Product = new Schema({
   
 });
 
+const Deal = new Schema({
+    
+    dealtype : {
+        
+        type:String
+        
+    },
+    start_date: {
+        type: Date
+    },
+    end_date: {
+        type: Date
+    },
+    
+    productid: {
+        type:[String]
+    }
+  
+});
+
 
 const User = new Schema({
     id: {
@@ -58,6 +78,27 @@ const User = new Schema({
         default: false,
       },
     //my wish list
+    phonenumber: {
+        type: Number,
+        
+      },
+
+      storetype: {
+        type: String,
+        
+      },
+     city: {
+        type: String,
+        
+      },
+      location: {
+        type: String,
+        
+      },
+      deallist: {
+        type: [Deal],
+        
+      },
   
     is_deleted: {
         type: Number,

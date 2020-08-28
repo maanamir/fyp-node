@@ -137,7 +137,8 @@ query1=querystring.parse(query);
 console.log(query1);
 let str=',';
 let query3 =  {category, brand, city,
-       storeName ,name,str };
+       storeName ,name };
+
 console.log(query3);
 console.log(categorybody);
 
@@ -145,6 +146,38 @@ console.log(categorybody);
           code: 200,
           message: 'Successfullll',
           data: products
+        });
+
+
+  } catch (error) {
+    console.log('error', error);
+    return res.status(500).send(error);
+  }
+};
+
+productsController.newProductIdForDealList = async (req, res) => {
+  let product;
+ 
+  try {
+    const  body  = req.query;
+    
+   
+    let storeid=body.storeid;
+    console.log(storeid);
+    let dealid=body.dealid;
+    console.log(dealid);
+
+
+
+    //db.collection.find().limit(1).sort({$natural:-1})
+         product = await Products.findOne({storeid:storeid,dealid:dealid}).limit(1).sort({$natural:-1});
+  console.log('product baby'+product);
+        let productid=product._id;
+        console.log(productid);
+         res.status(200).send({
+          code: 200,
+          message: 'Successfullll',
+          data: productid
         });
 
 
