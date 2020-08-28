@@ -128,7 +128,7 @@ storesController.getCustomList = async (req, res) => {
           expiresIn: '7d',
         },
         (err, emailToken) => {
-          const url = `http://localhost:3000/stores/confirmation/${emailToken}`;
+          const url = `https://kyadaam.herokuapp.com/stores/confirmation/${emailToken}`;
   
           transporter.sendMail({
             to: body.email,
