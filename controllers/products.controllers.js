@@ -242,7 +242,140 @@ productsController.getSearchedProducts = async (req, res) => {
     return res.status(500).send(error);
   }
 };
+productsController.getMidWeekProducts = async (req, res) => {
+  let products;
+  
+  try {
+    
+  
+      console.log('hello');
+      products = await Products.find( {dealtype:'Mid-Week',is_deleted:0});
+    
+   
+    res.status(200).send({
+      code: 200,
+      message: 'Suyyyccessful',
+      data: products
+    });
+  } catch (error) {
+    console.log('error', error);
+    return res.status(500).send(error);
+  }
+};
 
+
+productsController.getWeekEndProducts = async (req, res) => {
+  let products;
+  console.log('wh');
+  try {
+    
+  
+      console.log('yesss');
+      products = await Products.find( {dealtype:'Week-End',is_deleted:0});
+    
+   
+    res.status(200).send({
+      code: 200,
+      message: 'Suyyyccessful',
+      data: products
+    });
+  } catch (error) {
+    console.log('error', error);
+    return res.status(500).send(error);
+  }
+};
+
+productsController.deleteExpiredProducts = async (req, res) => {
+  let products;
+  console.log('wh');
+  try {
+    //get all product whose is_deleted is 0
+
+    products = await Products.find( {is_deleted:0});
+  
+      //console.log('yesss');
+      //products = await Products.find( {dealtype:'Week-End',is_deleted:0});
+      let currentDate = new Date();
+      
+      
+      let expiredProducts = [];
+      //let fruits: Array<string>;
+    for(let i=0;i<products.length;i++)
+    {
+      var date2 = new Date(products[i]["end_date"]);
+      if(date2<currentDate)
+      {
+        expiredProducts.push(products[i]["_id"]);
+      }
+    }
+   
+    console.log('expiredProdcut'+expiredProducts);
+
+    products = await Products.updateMany({_id:{"$in":expiredProducts}},{$set: {'is_deleted': 1}});
+   
+   console.log('updated');
+  } catch (error) {
+    console.log('error', error);
+   
+}
+};
+
+productsController.getBasicProducts = async (req, res) => {
+  let products;
+  
+  try {
+    console.log('i am in bro believe me!!!')
+    let  body  = req.query;
+    let _categorytype = body.categorytype;
+    console.log(_categorytype);
+    let _key = body.key;
+    console.log(_key);
+  //only All + any keyword
+     if(_categorytype=="All" & _key!="-1-1" )
+    {
+      console.log("category All and keyword=something");
+    products = await Products.find( {is_deleted:0,name: { "$regex": _key, "$options": "i" }});
+    }
+    //only All + no keyword
+    else if(_categorytype=="All" & _key=="-1-1" )
+    {
+      console.log("only All no keywords");
+        //only All + any keyword
+        //let merged = {};
+        //const start = 0;
+        //const length = 100;
+        products = await Products.find({is_deleted:0});
+          //merged,
+          //{
+            //offset: parseInt(start),
+           // limit: parseInt(length)
+          //}
+  
+    }
+    else if(_categorytype!="All" & _key!="-1-1" )
+    {
+      console.log("Anything +any keywords");
+      products = await Products.find( {is_deleted:0,category:_categorytype, name: { "$regex": _key, "$options": "i" }});
+    }
+    else if(_categorytype!="All" & _key=="-1-1" )
+    {
+      console.log("anything+ no keywords");
+      products = await Products.find( {is_deleted:0,category:_categorytype});
+    }
+    else
+    {
+     console.log('nothing left bro');
+    }
+    res.status(200).send({
+      code: 200,
+      message: 'Suyyyccessful',
+      data: products
+    });
+  } catch (error) {
+    console.log('error', error);
+    return res.status(500).send(error);
+  }
+};
 
 productsController.getAdvancedPlusProducts = async (req, res) => {
   let products;
