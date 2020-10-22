@@ -3,6 +3,7 @@ const router = express.Router();
 
 const checkAuth = require('../middleware/check-auth');
 const storeController = require('../controllers/stores.controllers');
+const upload = require('./../config/upload');
 
 router.get("/",storeController.getAll);
 router.get("/customlist/:storetype",storeController.getCustomList);
@@ -24,6 +25,7 @@ router.post("/createdeal",storeController.createdeal);
 router.post("/addProductIdToDeal",storeController.addProductToDeal);
 router.get("/getmyDealList/:_id", storeController.GetMyDealList);
 //router.put("/:_id", productController.updateProduct);
+router.put("/upload/:type/:id",upload.single('file'), storeController.uploadAvatar);
 
 
 

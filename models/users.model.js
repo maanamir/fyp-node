@@ -75,7 +75,7 @@ const User = new Schema({
     },
     confirmed: {
         type: Boolean,
-        default: false,
+        default: true,
       },
     //my wish list
     phonenumber: {

@@ -2,6 +2,35 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema;
 
+
+const Review = new Schema({
+    
+    userid:
+    {
+        type:String
+    },
+    rating : {
+        type:String
+    },
+    comment:{
+        type:String
+    },
+    is_commented:
+    {
+        type: Number,
+        default: 0
+    },
+    image:{
+        type:String
+    },
+    name:{
+        type:String
+    }
+  
+});
+
+
+
 const Product = new Schema({
     id: {
         type: Number,
@@ -61,7 +90,12 @@ const Product = new Schema({
     sub_subcategory: {
         type: String
     },
-  
+    reviewlist: {
+        type: [Review]
+    },
+    phoneNo: {
+        type: Number
+    },
     is_deleted: {
         type: Number,
         default: 0

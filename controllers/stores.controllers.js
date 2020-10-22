@@ -1,5 +1,6 @@
 const storesController = {};
 const Stores = require('../models/users.model');
+const Products = require('../models/products.model');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const jsonwebtoken =  require('jsonwebtoken');
@@ -232,27 +233,27 @@ storesController.getCustomList = async (req, res) => {
         }
       );
   
-      {
-        if (result.nModified == 1) {
-          res.status(200).send({
-            code: 200,
-            message: 'Updated Successfully'
-          });
-        } else if (result.upserted) {
-          res.status(200).send({
-            code: 200,
-            message: 'Created Successfully'
-          });
-        } else {
-          res.status(422).send({
-            code: 422,
-            message: 'Unprocessible Entity'
-          });
-        }
-      }
+      // {
+      //   if (result.nModified == 1) {
+      //     res.status(200).send({
+      //       code: 200,
+      //       message: 'Updated Successfully'
+      //     });
+      //   } else if (result.upserted) {
+      //     res.status(200).send({
+      //       code: 200,
+      //       message: 'Created Successfully'
+      //     });
+      //   } else {
+      //     res.status(422).send({
+      //       code: 422,
+      //       message: 'Unprocessible Entity'
+      //     });
+      //   }
+      // }
     } catch (error) {
       console.log('error', error);
-      return res.status(500).send(error);
+      // return res.status(500).send(error);
     }
   }
   
@@ -393,6 +394,60 @@ storesController.getCustomList = async (req, res) => {
         console.log('ex', ex);
       }
 };
+
+storesController.uploadAvatar = async (req, res) => {
+  try {
+    const filePath = `images/product/product-${req.params.id}`;
+    const ext = path.extname(req.file.originalname);
+    const updates = {
+      avatar: filePath,
+      avatar_ext: ext
+    };
+    runUpdateById(req.params.id, updates, res);
+  } catch (error) {
+    console.log('error', error);
+    return res.status(500).send(error);
+  }
+};
+async function runUpdateById(id, updates, res) {
+  try {
+    const result = await Products.updateOne(
+      {
+        _id: id
+      },
+      {
+        $set: updates
+      },
+      {
+        upsert: true,
+        runValidators: true
+      }
+    );
+
+    if (result.nModified == 1) {
+      res.status(200).send({
+        code: 200,
+        message: 'Updated Successfully'
+      });
+    } else if (result.upserted) {
+      res.status(200).send({
+        code: 200,
+        message: 'Created Successfully'
+      });
+    } else {
+      {
+        res.status(200).send({
+          code: 200,
+          message: 'Task completed successfully'
+        });
+      }
+    }
+  } catch (error) {
+    console.log('error', error);
+    return res.status(500).send(error);
+  }
+}
+
 
 module.exports = storesController;
 
