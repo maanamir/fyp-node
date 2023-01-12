@@ -13,7 +13,7 @@
   "dependencies": {
     "base-config": "^0.5.2",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.17.1",
+    "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^6.0.0",
     "express": "^4.16.4",
